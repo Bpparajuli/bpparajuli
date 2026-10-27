@@ -1,0 +1,231 @@
+@import 'tailwindcss';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Plus Jakarta Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    --color-brand: var(--brand-primary, #820b5c);
+    --color-brand-dark: var(--brand-primary-dark, #5f0742);
+    --color-secondary: var(--brand-secondary, #1a0262);
+    --color-accent: var(--brand-accent, #2563eb);
+    --color-ink: #111827;
+    --color-muted: #6b7280;
+    --color-surface: #f8fafc;
+
+    --shadow-soft: 0 1px 2px rgb(17 24 39 / 0.04), 0 8px 24px -12px rgb(17 24 39 / 0.12);
+    --shadow-lift: 0 24px 48px -24px rgb(17 24 39 / 0.28);
+
+    --radius-xl2: 1.25rem;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-surface text-ink font-sans antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-display tracking-tight text-ink;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    ::selection {
+        background-color: color-mix(in oklab, var(--color-brand) 22%, transparent);
+    }
+
+    :focus-visible {
+        @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-surface;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.001ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+@layer components {
+    .shell {
+        @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+    }
+
+    .shell-narrow {
+        @apply mx-auto w-full max-w-3xl px-5 sm:px-8;
+    }
+
+    .section {
+        @apply py-16 sm:py-20 lg:py-28;
+    }
+
+    .eyebrow {
+        @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em] text-brand;
+    }
+
+    .display-1 {
+        @apply font-display text-4xl font-extrabold leading-[1.05] sm:text-5xl lg:text-6xl;
+    }
+
+    .display-2 {
+        @apply font-display text-3xl font-bold leading-tight sm:text-4xl lg:text-[2.75rem];
+    }
+
+    .display-3 {
+        @apply font-display text-2xl font-bold leading-snug sm:text-3xl;
+    }
+
+    .lede {
+        @apply text-lg leading-relaxed text-muted sm:text-xl;
+    }
+
+    .btn-brand {
+        @apply btn bg-brand text-white shadow-soft hover:bg-brand-dark hover:shadow-lift;
+    }
+
+    .btn-ink {
+        @apply btn bg-ink text-white hover:bg-ink/90 hover:shadow-lift;
+    }
+
+    .btn-outline {
+        @apply btn border border-ink/15 bg-white text-ink hover:border-brand/40 hover:text-brand;
+    }
+
+    .btn-ghost {
+        @apply btn text-ink/80 hover:bg-ink/5 hover:text-ink;
+    }
+
+    .btn-sm {
+        @apply px-4 py-2 text-xs;
+    }
+
+    .card {
+        @apply rounded-2xl border border-ink/8 bg-white shadow-soft transition duration-300 ease-out;
+    }
+
+    .card-hover {
+        @apply hover:-translate-y-1 hover:border-brand/20 hover:shadow-lift;
+    }
+
+    .badge {
+        @apply inline-flex items-center gap-1.5 rounded-full border border-ink/10 bg-white/70 px-3 py-1
+            text-xs font-medium text-muted backdrop-blur;
+    }
+
+    .chip {
+        @apply inline-flex items-center rounded-full bg-brand/8 px-3 py-1 text-xs font-medium text-brand;
+    }
+
+    .prose-content {
+        @apply text-[1.0625rem] leading-[1.8] text-ink/80;
+    }
+
+    .prose-content h2 {
+        @apply mt-10 mb-4 text-2xl font-bold text-ink;
+    }
+
+    .prose-content h3 {
+        @apply mt-8 mb-3 text-xl font-bold text-ink;
+    }
+
+    .prose-content p {
+        @apply my-5;
+    }
+
+    .prose-content ul {
+        @apply my-5 list-disc space-y-2 pl-6;
+    }
+
+    .prose-content ol {
+        @apply my-5 list-decimal space-y-2 pl-6;
+    }
+
+    .prose-content a {
+        @apply font-medium text-brand underline decoration-brand/30 underline-offset-4 hover:decoration-brand;
+    }
+
+    .prose-content blockquote {
+        @apply my-6 border-l-4 border-brand/30 pl-5 text-lg italic text-ink/70;
+    }
+
+    .prose-content img {
+        @apply my-8 w-full rounded-xl;
+    }
+
+    .prose-content code {
+        @apply rounded bg-ink/5 px-1.5 py-0.5 font-mono text-sm text-brand-dark;
+    }
+
+    .prose-content pre {
+        @apply my-6 overflow-x-auto rounded-xl bg-ink p-5 text-sm text-white;
+    }
+
+    .prose-content pre code {
+        @apply bg-transparent p-0 text-inherit;
+    }
+
+    .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        will-change: opacity, transform;
+    }
+
+    .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    .form-label {
+        @apply mb-1.5 block text-sm font-medium text-ink;
+    }
+
+    .form-input {
+        @apply block w-full rounded-lg border border-ink/15 bg-white px-3.5 py-2.5 text-sm text-ink
+            shadow-sm transition placeholder:text-muted/60 focus:border-brand focus:ring-2 focus:ring-brand/20;
+    }
+
+    .form-input.is-invalid {
+        @apply border-red-300 focus:border-red-400 focus:ring-red-200;
+    }
+
+    .form-help {
+        @apply mt-1.5 text-xs text-muted;
+    }
+
+    .form-error {
+        @apply mt-1.5 text-xs font-medium text-red-600;
+    }
+}
+
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold
+        transition duration-200 ease-out focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2
+        disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    .grain {
+        background-image:
+            radial-gradient(circle at 1px 1px, rgb(17 24 39 / 0.045) 1px, transparent 0);
+        background-size: 22px 22px;
+    }
+}
